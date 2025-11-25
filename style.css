@@ -39,6 +39,7 @@ body.light-mode {
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.1);
     margin-top: 3rem;
+    margin-bottom: 6rem; /* Ensure space for fixed install prompt */
     transition: all 0.3s ease;
 }
 
