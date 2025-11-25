@@ -1,353 +1,103 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <link rel="icon" type="image/png" href="weather-icon.png">
-    <title>Weather App</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="manifest" href="manifest.json" />
-    <style>
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-        }
+<html lang="en">
 
-        body {
-          font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center;
-        }
-        h1 {
-          text-align: center;
-          margin: 2rem;
-        }
-        .weather {
-          max-width: 600px;
-          margin: auto;
-          padding: 2rem;
-          background-color: #fff;
-          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-        }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Degrees</title>
+  <link rel="icon" type="image/png" href="weather-icon.png">
+  <link rel="manifest" href="manifest.json">
 
-        form {
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: center;
-          margin: 1rem 0;
-        }
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- Animate.css -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
 
-        input[type="text"] {
-          flex: 1;
-          padding: 1rem;
-          border: none;
-          border-radius: 5px 0 0 5px;
-          margin-right: 0.5rem;
-        }
-        button {
-          padding: 1rem;
-          border: none;
-          background-color: #4caf50;
-          color: #fff;
-          border-radius: 0 5px 5px 0;
-          cursor: pointer;
-          margin-top: 0.5rem;
-        }
-        button:hover {
-          background-color: #3e8e41;
-        }
-        .getweather-btn {
-          border-radius: 50px;
-          background-color: #0077ff;
-          color: #fff;
-          padding: 10px 20px;
-          font-size: 18px;
-          cursor: pointer;
-          transition: all 0.3s ease-in-out;
-          margin-top: 1rem;
-          outline: none;
-        }
-        .getweather-btn:hover {
-          transform: scale(1.1);
-          box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
-          outline: none;
-        }
-        #city {
-          border-radius: 50px;
-          padding: 10px 20px;
-          cursor: text;
-          margin-right: 0.5rem;
-        }
-        input[type="text"] {
-          border: 1px solid #ccc;
-          font-size: 20px;
-        }
-        @media only screen and (max-width: 600px) {
-          .weather {
-            max-width: 90%;
-            padding: 1rem;
-          }
-          form {
-            flex-direction: column;
-          }
-          input[type="text"], #city {
-            margin-right: 0;
-            margin-bottom: 0.5rem;
-          }
-          button {
-            margin-top: 0.5rem;
-            margin-bottom: 1rem;
-          }
-        }
-        @media only screen and (max-width: 400px) {
-          .weather {
-            max-width: 95%;
-          }
-        }
-      	nav {
-      	  height: 50px;
-      	}
-      	ul {
-      	  list-style-type: none;
-      	  margin: 0;
-      	  padding: 0;
-      	  overflow: hidden;
-      	}
-      	li {
-      	  float: left;
-      	}
-      	a {
-      	  display: block;
-      	  color: green;
-      	  text-align: center;
-      	  padding: 14px 16px;
-      	  text-decoration: none;
-      	}
-      	nav a:hover {
-        background-color: #000;
-        color: #fff;
-        }
-      	nav a {
-      	  transition: transform 0.3s ease;
-      	}
-      	.toggle-switch {
-      	  display: inline-block;
-      	  position: relative;
-      	  width: 60px;
-      	  height: 34px;
-      	}
-      	.toggle-switch input {
-      	  display: none;
-      	}
-      	.slider {
-      	  position: absolute;
-      	  cursor: pointer;
-      	  top: 0;
-      	  left: 0;
-      	  right: 0;
-      	  bottom: 0;
-      	  background-color: #ccc;
-      	  -webkit-transition: .4s;
-      	  transition: .4s;
-      	  border-radius: 34px;
-      	}
-      	.slider:before {
-      	  position: absolute;
-      	  content: "";
-      	  height: 26px;
-      	  width: 26px;
-      	  left: 4px;
-      	  bottom: 4px;
-      	  background-color: white;
-      	  -webkit-transition: .4s;
-      	  transition: .4s;
-      	  border-radius: 50%;
-      	}
-      	input:checked + .slider {
-      	  background-color: #2196F3;
-      	}
-      	input:focus + .slider {
-      	  box-shadow: 0 0 1px #2196F3;
-      	}
-      	input:checked + .slider:before {
-      	  -webkit-transform: translateX(26px);
-      	  -ms-transform: translateX(26px);
-      	  transform: translateX(26px);
-      	}
-        .dark-mode {
-          background-color: #222222;
-          color: #ffffff;
-        }
-        #outer.dark-mode {
-          background-color: #333;
-          color: #eee;
-        }
-        .toggle-switch.dark-mode .slider {
-          background-color: #444;
-        }
-        .toggle-switch.dark-mode input:checked + .slider {
-        background-color: #2196F3;
-        }
-        #buttondark{
-      		float: right;
-      		margin-top: 10px;
-      	}
-        .dark-mode .weather {
-          color: yellow;
-          background-color: #222222;
-        }
-        .dark-mode input[type="text"] {
-          background-color: #444;
-          color: #fff;
-        }
-        .dark-mode h1{
-          color: #279EFF;
-        }
-        .dark-mode h2{
-          color: #279EFF;
-        }
-        .dark-mode .getweather-btn {
-          color: #fff !important;
-        }
-        #result img {
-          display: block;
-          margin: 0 auto;
-          height: 100px;
-          width: 100px;
+<body>
 
-          
-        }
-        .weather-details {
-          display: flex;
-          justify-content: space-between;
-        }
-.left-details {
-  display: flex;
-  align-items: center;
-  margin-right: 20px; /* Add spacing between weather icon and left-aligned details */
-}
-.right-details {
-  text-align: right; /* Align details to the right */
-  margin-top: 26px;
-}
-.center-heading {
-  text-align: center;
-  margin-bottom: 15px; /* Add some spacing below the centered heading */
-}
-/* Add these styles to your existing CSS */
-.centered-weather {
-  text-align: center !important;
-}
-
-  </style>
-  </head>
-  <body>
-  <nav>
-      <ul>
-        <li><a href="https://aryak-mohanty.github.io/Weather-web/">Home</a></li>
-        <li id="buttondark">
-      			<label class="toggle-switch">
-        		<input type="checkbox" id="toggle1">
-        		<span class="slider"></span>
-         </label>
-         </li>
-       </ul>
-  </nav>
-  <h1>Weather</h1>
-    <div class="weather">
-      <h2>Enter Your City Name</h2>
-      <form>
-        <input type="text" id="city" placeholder="Enter City Name" autocomplete="off" />
-        <button type="button" onclick="getWeather()" class="getweather-btn">Get info</button>
-      </form>
-      <div id="result"></div>
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid px-5">
+      <a class="navbar-brand fs-3 fw-bold" href="#">
+        <i class="bi bi-cloud-sun-fill me-2"></i>Daily Degrees
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item">
+            <button id="desktop-install-btn" class="btn btn-outline-light btn-sm rounded-pill">
+              <i class="bi bi-download me-2"></i>Install App
+            </button>
+          </li>
+          <li class="nav-item ms-3">
+            <div class="theme-switch-wrapper">
+              <label class="theme-switch" for="checkbox">
+                <input type="checkbox" id="checkbox" checked />
+                <div class="slider round">
+                  <i class="bi bi-sun-fill sun-icon"></i>
+                  <i class="bi bi-moon-fill moon-icon"></i>
+                </div>
+              </label>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
-    <script type="text/javascript">
-      // Register service worker
-     if ('serviceWorker' in navigator) {
-         window.addEventListener('load', () => {
-           navigator.serviceWorker.register('service-worker.js')
-             .then(registration => {
-               console.log('Service Worker registered with scope:', registration.scope);
-             })
-             .catch(error => {
-               console.error('Service Worker registration failed:', error);
-             });
-         });
-       }
-           function getWeather() {
-             const city = document.getElementById("city").value;
-             const apiKey = "3e04dee986b3b9b37bbda3d8cf171a1f";
-             const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=en&aqi=yes&cnt=1`;
-             fetch(url)
-               .then((response) => response.json())
-               .then((data) => {
-                 if (!data.weather || data.weather.length === 0) {
-                   throw new Error("Weather data not found.");
-                 }
-                 const weather = data.weather[0].description;
-                 const icon = data.weather[0].icon;
-                 const temp = data.main.temp;
-                 const feelsLike = data.main.feels_like;
-                 const humidity = data.main.humidity;
-                 const result = document.getElementById("result");
-                 result.innerHTML = `
-                 <div id="result">
-                   <h3 class="center-heading">Weather in ${city}</h3>
-                   <p class="centered-weather"><strong>Weather:</strong> ${weather} 
-                   <div class="weather-details">
-                   <div class="left-details">
-                   <img src="http://openweathermap.org/img/w/${icon}.png" /></p>
-                   </div>
-                   <div class="right-details">
-                   <p><strong>Temperature:</strong> ${temp}°C</p>
-                   <p><strong>Feels like:</strong> ${feelsLike}°C</p>
-                   <p><strong>Humidity:</strong> ${humidity}%</p>
-                 </div>
-       </div>
-     </div>
-                 `;
- 
-     
-               })
-               .catch((error) => {
-                 console.error(error);
-                 const result = document.getElementById("result");
-                 result.innerHTML = `
-                   <p>An error occurred while fetching weather data. Please try again later.</p>
-                 `;
-               });
-           }
+  </nav>
 
-     //buttondark
-     const toggleSwitch = document.querySelector('.toggle-switch input[type="checkbox"]');
-     const outer = document.getElementById('outer');
-     toggleSwitch.addEventListener('change', function() {
-       if(this.checked) {
-         outer.classList.add('dark-mode');
-       } else {
-         outer.classList.remove('dark-mode');
-       }
-     });
-     const toggle1 = document.querySelector('#toggle1');
-     
-     toggle1.addEventListener('click', function() {
-       document.body.classList.toggle('dark-mode');
-     
-     });
-     //Enterkey
-     document.addEventListener("keydown", function(event) {
-       if (event.key === "Enter") {
-         event.preventDefault();
-         getWeather();
-       }
-     });
-     
-       </script>
-  </body>
-  </html>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="weather-container animate__animated animate__fadeInDown">
+          <h1 class="text-center mb-4 fw-bold">Check Weather</h1>
+          <div class="position-relative">
+            <div class="input-group mb-3">
+              <input type="text" id="city" class="form-control" placeholder="Enter Location" aria-label="City Name"
+                autocomplete="off">
+              <button class="btn btn-search" type="button" onclick="getWeather()">Search</button>
+            </div>
+            <div id="suggestions" class="list-group position-absolute w-100" style="z-index: 1000; top: 100%;"></div>
+          </div>
+
+          <div id="result">
+            <!-- Weather results will appear here -->
+            <div class="text-center text-muted mt-4">
+              <i class="bi bi-cloud-arrow-up fs-1"></i>
+              <p class="mt-2">Enter a city to get started</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PWA Install Prompt -->
+  <div id="pwa-install-prompt" class="pwa-install-prompt d-none">
+    <div class="d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center">
+        <img src="weather-icon.png" alt="App Icon" class="pwa-icon me-3">
+        <div>
+          <h6 class="mb-0 fw-bold">Install Daily Degrees</h6>
+          <small>Get the best experience on your mobile</small>
+        </div>
+      </div>
+      <button id="pwa-install-btn" class="btn btn-sm btn-primary rounded-pill px-3">Install</button>
+      <button id="pwa-dismiss-btn" class="btn btn-sm btn-link text-white ms-2"><i class="bi bi-x-lg"></i></button>
+    </div>
+  </div>
+
+  <!-- Bootstrap 5 JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom JS -->
+  <script src="script.js"></script>
+</body>
+
+</html>

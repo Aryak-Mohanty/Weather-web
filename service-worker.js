@@ -1,4 +1,4 @@
-const CACHE_NAME = 'weather-cache-v1';
+const CACHE_NAME = 'weather-cache-v2';
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -8,8 +8,10 @@ self.addEventListener('install', (event) => {
         const resourcesToCache = [
           '/',
           'index.html',
+          'style.css',
+          'script.js',
           'weather-icon.png',
-          // ... other assets ...
+          'manifest.json'
         ];
 
         // Loop through the resources and cache each one individually
