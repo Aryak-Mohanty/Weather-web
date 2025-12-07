@@ -30,7 +30,6 @@ To run this project locally:
 <ol>
   <li>Clone the repository:
 <pre><code>git clone https://github.com/Aryak-Mohanty/Weather-web.git</code></pre>
-<pre><code>cd Weather-web</code></pre>
 </li>
   <li>Run the application: Open index.html in your web browser.  </li>
 </ol>
