@@ -1,6 +1,7 @@
 # Weather Website 🌦️
 
 Live Site: https://aryak-mohanty.github.io/Weather-web/
+
 Daily Degrees is a feature-rich, responsive Progressive Web App (PWA) designed to provide instant weather updates. Accessible via the link above, this application delivers real-time temperature, humidity, and wind data through a polished user interface that works seamlessly across desktop and mobile devices.
 
 
